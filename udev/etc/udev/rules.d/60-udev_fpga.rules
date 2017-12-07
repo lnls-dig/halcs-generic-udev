@@ -1,0 +1,5 @@
+# Permissions for the fpga devices
+
+KERNEL=="fpga*", ACTION=="add", OWNER="root", GROUP="users", MODE="660", PROGRAM="/usr/local/share/halcs/scripts/get-fpga-gateware-properties.sh -i %k", SYMLINK+="fpga/%c{2}", RUN+="/usr/local/share/halcs/scripts/run-fpga-program.sh %c{1+}"
+
+KERNEL=="fpga*", ACTION=="remove", PROGRAM="/usr/local/share/halcs/scripts/get-fpga-gateware-properties.sh -i %k", RUN+="/usr/local/share/halcs/scripts/stop-fpga-program.sh %c{1+}"

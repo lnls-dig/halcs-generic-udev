@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+
+set -u
+
+DIR=$(dirname $(realpath $0))
+
+# This script it to be used with: "script_name" <gateware_name> \
+#    <device_number> \
+#    <fmc0_name> <fmc1_name> ... <fmcn_name>
+GATEWARE_NAME=$1
+DEVICE_NUMBER=$2
+shift 2
+FMC_NAMES=($@)
+
+# Get HALCS instances
+HALCS_IDXS=($(${DIR}/get-halcs-idxs.sh ${DEVICE_NUMBER}))
+echo "${#HALCS_IDXS[@]}"
+
+for i in $(seq 1 "${#HALCS_IDXS[@]}"); do
+    prog_inst=$i-1;
+    case "${GATEWARE_NAME}" in
+        bpm-gw*)
+            case "${FMC_NAMES[$prog_inst]}" in
+                LNLS_FMC250M*)
+                    START_PROGRAM="/usr/bin/systemctl --no-block stop halcs@${HALCS_IDXS[$prog_inst]}.target"
+                    ;;
+                LNLS_FMC130M*)
+                    START_PROGRAM="/usr/bin/systemctl --no-block stop halcs@${HALCS_IDXS[$prog_inst]}.target"
+                    ;;
+                *)
+                    echo "Unsupported Gateware Module: "${FPGA_FMC_NAME} >&2
+                    exit 1
+                    ;;
+            esac
+            ;;
+    
+        tim-receiver*)
+            START_PROGRAM="/usr/bin/systemctl --no-block stop halcs@${HALCS_IDXS[$prog_inst]}.target"
+            ;;
+    
+        pbpm-gw*)
+            START_PROGRAM="/usr/bin/systemctl --no-block stop halcs@${HALCS_IDXS[$prog_inst]}.target"
+            ;;
+        *)
+            echo "Invalid Gateware: "${GATEWARE_NAME} >&2
+            exit 2
+            ;;
+    esac
+done
