@@ -3,7 +3,7 @@ CMDSEP = ;
 PWD = $(shell pwd)
 
 # Prefixes
-SCRIPTS_PREFIX ?= /usr
+SCRIPTS_PREFIX ?= /usr/local
 UDEV_PREFIX ?=
 
 # Scripts
