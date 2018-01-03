@@ -32,11 +32,11 @@ for i in $(seq 1 "${#HALCS_IDXS[@]}"); do
                     ;;
             esac
             ;;
-    
+
         tim-receiver*)
             START_PROGRAM="/usr/bin/systemctl --no-block start halcs-ioc@${HALCS_IDXS[$prog_inst]}.target"
             ;;
-    
+
         pbpm-gw*)
             START_PROGRAM="/usr/bin/systemctl --no-block start halcs-ioc@${HALCS_IDXS[$prog_inst]}.target"
             ;;
