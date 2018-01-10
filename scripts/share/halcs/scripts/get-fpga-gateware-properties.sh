@@ -36,7 +36,7 @@ if [ -z "${DEVICE_ID}" ] && [ -z "${DEVICE_NUMBER}" ]; then
     exit 2
 fi
 
-# if DEVICE_ID is not set, create the name by concatenating 
+# if DEVICE_ID is not set, create the name by concatenating
 # DEVICE_NAME and DEVICE_NUMBER
 if [ -z "${DEVICE_ID}" ]; then
   DEVICE_ID=${DEVICE_NAME}${DEVICE_NUMBER}
@@ -52,7 +52,7 @@ FULL_DEVICE_NAME=${DEVICE_PREFIX}/${DEVICE_ID}
 # Check if device file is opened. If it is we must close it before
 # probing for SDB gateware name
 LSOF_OUT=$(/sbin/lsof ${FULL_DEVICE_NAME})
-if [ ! -z "${LSOF_OUT}" ]; then 
+if [ ! -z "${LSOF_OUT}" ]; then
     for halcs_intance in "${HALCS_IDXS[@]}"; do
         systemctl stop halcs@${halcs_intance}.target
     done
