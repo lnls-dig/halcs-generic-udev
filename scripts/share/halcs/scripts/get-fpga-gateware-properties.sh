@@ -64,6 +64,11 @@ SDB_PARSER_NAME="sdb-read-lnls"
 # Our SDB parser should be in PATH, but let's check anyway
 sdb_parser=$(realpath $(which "${SDB_PARSER_NAME}" | head -n 1))
 if [ -z "${sdb_parser}" ]; then
+    # Try finding the script at some other default locations
+    sdb_parser=$(${DIR}/find-script.sh ${SDB_PARSER_NAME})
+fi
+
+if [ -z "${sdb_parser}" ]; then
     echo "Could not find script: ${SDB_PARSER_NAME}" >&2
     exit 4
 fi
