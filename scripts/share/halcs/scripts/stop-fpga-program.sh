@@ -11,7 +11,7 @@ shift 1
 DEV_NUMBERS=($@)
 
 for i in "${DEV_NUMBERS[@]}"; do
-    STOP_PROGRAM="/usr/bin/systemctl --no-block stop halcs@${DEV_NUMBERS[$i]}.target"
+    STOP_PROGRAM="/usr/bin/systemctl --no-block stop halcs@${i}.target"
 
     eval ${STOP_PROGRAM}
 done
