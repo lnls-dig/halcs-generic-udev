@@ -38,7 +38,12 @@ for i in $(seq 1 "${#HALCS_IDXS[@]}"); do
             ;;
 
         afc-tim*)
-            START_PROGRAM="/usr/bin/systemctl --no-block start tim-rx-ioc@${HALCS_IDXS[$prog_inst]}.service"
+            # Only start IOCs for even-numbered instances, as there is no device for odd-numbered instances
+            if [ $((prog_inst%2)) -eq 0 ]; then
+                START_PROGRAM="/usr/bin/systemctl --no-block start tim-rx-ioc@${HALCS_IDXS[$prog_inst]}.service"
+            else
+                START_PROGRAM=""
+            fi
             ;;
 
         pbpm-gw*)
