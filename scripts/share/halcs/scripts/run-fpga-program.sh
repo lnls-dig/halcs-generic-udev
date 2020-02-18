@@ -16,7 +16,7 @@ FMC_NAMES=($@)
 HALCS_IDXS=($(${DIR}/get-halcs-idxs.sh ${DEVICE_NUMBER}))
 
 for i in $(seq 1 "${#HALCS_IDXS[@]}"); do
-    prog_inst=$i-1;
+    prog_inst=$((i-1));
     case "${GATEWARE_NAME}" in
         bpm-gw*)
             case "${FMC_NAMES[$prog_inst]}" in
