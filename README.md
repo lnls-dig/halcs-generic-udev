@@ -1,3 +1,5 @@
+# !! WARNING !! DEPRECATED REPOSITORY. THIS IS NOW SHIPPED WITH HALCS https://github.com/lnls-dig/halcs
+
 # HALCS UDEV replacement scripts for generic SDB identification
 
 The purpose of this project is to replace the specific
@@ -14,4 +16,3 @@ a different entrypoint to control the board.
 This could also be accomplished by means of different VendorID/DeviceID
 for each new application, but that would incur changing the driver to
 support new DeviceIDs.
-
